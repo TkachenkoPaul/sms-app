@@ -32,23 +32,52 @@
                     <div class="col-lg-12">
                         <div class="card card-primary card-outline">
                             <div class="card-header">
-                                <h5 class="card-title m-0">Именить группу</h5>
+                                <h5 class="card-title m-0">Изменить подписчика</h5>
                             </div>
 
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-6">
                                         <form id="update-group" method="POST"
-                                                            action="{{ route('update-group',[$group->id]) }}">
+                                                            action="{{ route('update-subscriber',[$subscriber->id]) }}">
                                                             @csrf
                                                             <input type="hidden" name="_method" value="put" />
                                             <div class="row">
                                                 <div class="col-sm-12">
                                                     <!-- text input -->
                                                     <div class="form-group">
-                                                        <label>Имя группы:</label>
+                                                        <label>Имя :</label>
                                                         <input name="name" type="text"
-                                                            class="form-control" placeholder="" value="{{ $group->name }}">
+                                                            class="form-control" placeholder="" value="{{ $subscriber->name }}">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <!-- text input -->
+                                                    <div class="form-group">
+                                                        <label>Группа :</label>
+                                                        <select  name="gid" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
+                                                            @foreach ($groups as $group)
+                                                                @if ($group->id === $subscriber->gid )
+                                                                    <option selected value="{{ $group->id }}">{{ $group->name }}</option>
+                                                                @else
+                                                                    <option value="{{ $group->id }}">{{ $group->name }}</option>
+                                                                @endif
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <!-- text input -->
+                                                    <div class="form-group">
+                                                        <label>Телефон:</label>
+                                                        <input name="phone" type="text"
+                                                            class="form-control" placeholder="" value="{{ $subscriber->phone }}">
                                                     </div>
                                                 </div>
                                             </div>
@@ -57,7 +86,7 @@
                                                     <!-- textarea -->
                                                     <div class="form-group">
                                                         <label>Описание </label>
-                                                        <textarea name="desc" class="form-control" rows="4" placeholder="Введите краткое описание группы">{{ $group->desc }}</textarea>
+                                                        <textarea name="desc" class="form-control" rows="4" placeholder="Введите краткое описание группы">{{ $subscriber->desc }}</textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -70,7 +99,7 @@
                                                 <div class="form-group">
                                                     <label>Создано:</label>
                                                     <input type="text"
-                                                        class="form-control" disabled value="{{ $group->created_at }}">
+                                                        class="form-control" disabled value="{{ $subscriber->created_at }}">
                                                 </div>
                                             </div>
                                             <div class="col-sm-12">
@@ -78,7 +107,7 @@
                                                 <div class="form-group">
                                                     <label>Изменено:</label>
                                                     <input type="text"
-                                                        class="form-control" disabled value="{{ $group->updated_at }}">
+                                                        class="form-control" disabled value="{{ $subscriber->updated_at }}">
                                                 </div>
                                             </div>
                                             <div class="col-sm-12">
@@ -86,7 +115,7 @@
                                                 <div class="form-group">
                                                     <label>Создал:</label>
                                                     <input type="text"
-                                                        class="form-control" disabled value="{{ $group->admin->name }}">
+                                                        class="form-control" disabled value="{{ $subscriber->admin->name }}">
                                                 </div>
                                             </div>
                                         </div>

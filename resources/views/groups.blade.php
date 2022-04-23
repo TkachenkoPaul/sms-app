@@ -92,20 +92,22 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <table id="example1" class="table table-bordered table-striped">
+                                        <table id="example1" class="table table-bordered compact table-hover table-striped projects">
                                             <thead>
                                                 <tr>
                                                     <th>#</th>
                                                     <th>Имя</th>
                                                     <th>Описание</th>
                                                     <th>Добавил</th>
+                                                    <th>Подписчиков</th>
                                                     <th>Добавлено</th>
                                                     <th>Изменено</th>
                                                     <th>Действия</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach ($data as $item)
+                                            @if ($data ?? '')
+                                                @foreach ($data ?? '' as $item)
                                                     <tr>
                                                         <td>{{ $item->id }}</td>
                                                         <td>{{ $item->name }}</td>
@@ -113,24 +115,27 @@
                                                             {{ $item->desc }}
                                                         </td>
                                                         <td>{{ $item->admin->name }}</td>
+                                                        <td>{{ $item->subscribers_count }}</td>
                                                         <td>{{ $item->created_at }}</td>
                                                         <td>{{ $item->updated_at }}</td>
-                                                        <td class="project-actions text-right">
-                                                            <a class="btn btn-primary btn-sm" href="#">
+                                                        <td class="project-actions text-center">
+                                                            <a class="btn btn-primary btn-block btn-sm" href="{{ route('subscribers',['groupId' =>$item->id]) }}">
                                                                 <i class="fas fa-folder">
                                                                 </i>
                                                             </a>
-                                                            <a class="btn btn-info btn-sm" href="{{ route('edit-group',$item->id) }}">
+                                                            <a class="btn btn-info btn-block btn-sm" href="{{ route('edit-group',['id' =>$item->id]) }}">
                                                                 <i class="fas fa-pencil-alt">
                                                                 </i>
                                                             </a>
-                                                            <a class="btn btn-danger btn-sm" href="{{ route('destroy-group',$item->id) }}">
+                                                            <a class="btn btn-danger  btn-block btn-sm" href="{{ route('destroy-group',['id' =>$item->id]) }}">
                                                                 <i class="fas fa-trash">
                                                                 </i>
                                                             </a>
                                                         </td>
                                                     </tr>
                                                 @endforeach
+                                            @endif
+
                                             </tbody>
                                             <tfoot>
                                                 <tr>
@@ -138,6 +143,7 @@
                                                     <th>Имя</th>
                                                     <th>Описание</th>
                                                     <th>Добавил</th>
+                                                    <th>Подписчиков</th>
                                                     <th>Добавлено</th>
                                                     <th>Изменено</th>
                                                     <th>Действия</th>

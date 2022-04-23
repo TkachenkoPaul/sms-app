@@ -17,7 +17,7 @@ class GroupsController extends Controller
      */
     public function index()
     {
-        $data = Groups::with('admin')->get();
+        $data = Groups::with('admin')->withCount('subscribers')->get();
         return view('groups',['data' => $data]);
     }
 
@@ -66,20 +66,25 @@ class GroupsController extends Controller
      */
     public function edit(Groups $groups,$id)
     {
-        $group = $groups::find($id)->with('admin');
-        return view('groupsNew');
+        $group = $groups::with('admin')->find($id);
+        return view('group',['group' => $group]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\StoreGroupRequest  $request
      * @param  \App\Models\Groups  $groups
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Groups $groups)
+    public function update(StoreGroupRequest $request, Groups $groups , $id)
     {
-        //
+        $group = $groups->find($id);
+        $group->name = $request->input('name');
+        $group->desc = $request->input('desc');
+        $group->save();
+        return redirect()->route('groups');
+
     }
 
     /**

@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreGroupRequest extends FormRequest
+class StoreSubscriberRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,8 +26,11 @@ class StoreGroupRequest extends FormRequest
         return [
             'name' => 'required|max:255',
             'desc' => 'required',
+            'phone' => 'required',
+            'gid' => 'required|exists:mysql.groups,id'
         ];
     }
+
     /**
      * Get the error messages for the defined validation rules.
      *
@@ -36,8 +39,9 @@ class StoreGroupRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => 'Необходимо указать имя группы',
-            'desc.required' => 'Необходимо указать описание группы',
+            'name.required' => 'Необходимо указать имя подписчика',
+            'desc.required' => 'Необходимо указать описание подписчика',
+            'phone.required' => 'Необходимо указать телефон подписчика',
         ];
     }
 }
