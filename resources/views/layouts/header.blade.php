@@ -23,7 +23,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- daterange picker -->
     <link rel="stylesheet" href="{{ asset('plugins/daterangepicker/daterangepicker.css') }}">
     <!-- Tempusdominus Bootstrap 4 -->
-    <link rel="stylesheet" href="{{ asset('plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
+    <link rel="stylesheet"
+        href="{{ asset('plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
     <!-- Toastr -->
     <link rel="stylesheet" href="{{ asset('plugins/toastr/toastr.min.css') }}">
     <!-- Select2 -->
@@ -57,11 +58,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <div class="collapse navbar-collapse order-3" id="navbarCollapse">
                     <!-- Left navbar links -->
                     <ul class="navbar-nav">
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a href="/" class="nav-link">Статистика</a>
-                        </li>
+                        </li> --}}
                         <li class="nav-item">
-                            <a href="/messages" class="nav-link">Рассылка</a>
+                            <a href="/" class="nav-link">Рассылка</a>
                         </li>
                         <li class="nav-item">
                             <a href="/sources" class="nav-link">Источники</a>

@@ -13,7 +13,7 @@ class StoreMessageRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,22 @@ class StoreMessageRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'message' => 'required',
+        ];
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'name.required' => 'Необходимо указать имя источника',
+            'message.required' => 'Необходимо указать сообщение для рассылки',
+            'login.required' => 'Необходимо указать логин источника',
+            'password.required' => 'Необходимо указать пароль источника',
         ];
     }
 }

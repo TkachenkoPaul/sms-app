@@ -18,27 +18,160 @@
         <div class="content">
             <div class="container">
                 <div class="row">
+                    <div class="col-12 col-sm-6 col-md-3">
+                        <div class="info-box elevation-3">
+                            <span class="info-box-icon bg-success elevation-1"><i class="fas fa-sms"></i></span>
+
+                            <div class="info-box-content">
+                                <span class="info-box-text">Альфа имя 1</span>
+                                <span class="info-box-number">
+                                    140
+                                    <small>шт.</small>
+                                </span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-12 col-sm-6 col-md-3">
+                        <div class="info-box elevation-3 mb-3">
+                            <span class="info-box-icon bg-success elevation-1"><i class="fas fa-sms"></i></span>
+
+                            <div class="info-box-content">
+                                <span class="info-box-text">Альфа имя 2</span>
+                                <span class="info-box-number">130 <small>шт.</small></span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-12 col-sm-6 col-md-3">
+                        <div class="info-box elevation-3">
+                            <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-comment-dots"></i></span>
+
+                            <div class="info-box-content">
+                                <span class="info-box-text">Очередь</span>
+                                <span class="info-box-number">
+                                    {{ $inQueue }}
+                                    <small>шт.</small>
+                                </span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                    </div>
+                    <!-- /.col -->
+                    <!-- fix for small devices only -->
+                    <div class="clearfix hidden-md-up"></div>
+
+                </div>
+                <div class="row">
                     <div class="col-lg-12">
                         <div class="card card-primary card-outline">
                             <div class="card-header">
                                 <h5 class="card-title m-0">{{ $header }}</h5>
                                 <div class="card-tools">
-                                    <button type="button" class="btn btn-sm btn-primary" >
-                                    <i class="fas fa-plus"></i> Создать
+                                    <button type="button" class="btn btn-sm btn-primary" data-toggle="modal"
+                                        data-target="#modal-default">
+                                        <i class="fas fa-plus"></i> Создать
                                     </button>
+
                                 </div>
                             </div>
                             <div class="card-body">
+
+                                <div class="modal fade" id="modal-default">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Создать рассылку</h4>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form id="add-group" method="POST" action="{{ route('store-messages') }}">
+                                                    @csrf
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <div class="form-group">
+                                                                <label>Источник:</label>
+                                                                <select name="src"
+                                                                    class="form-control select2 select2-hidden-accessible"
+                                                                    style="width: 100%;" tabindex="-1" aria-hidden="true">
+                                                                    @foreach ($sources ?? ' ' as $source)
+                                                                        <option value="{{ $source->id }}">
+                                                                            {{ $source->name }}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-12">
+                                                            <div class="form-group">
+                                                                <label>Группа:</label>
+                                                                <select name="gid"
+                                                                    class="form-control select2 select2-hidden-accessible"
+                                                                    style="width: 100%;" tabindex="-1" aria-hidden="true">
+                                                                    @foreach ($groups ?? ' ' as $group)
+                                                                        <option value="{{ $group->id }}">
+                                                                            {{ $group->name }}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <!-- textarea -->
+                                                            <div class="form-group">
+                                                                <label>Описание </label>
+                                                                <textarea maxlength="69" id="message" name="message" class="form-control" rows="4"
+                                                                    placeholder="Введите краткое описание группы"></textarea>
+                                                                <div class="pull-right" id="counter">0</div>
+                                                            </div>
+                                                        </div>
+                                                        <script>
+                                                            const messageEle = document.getElementById('message');
+                                                            const counterEle = document.getElementById('counter');
+
+                                                            messageEle.addEventListener('input', function(e) {
+                                                                const target = e.target;
+
+                                                                // Count the current number of characters
+                                                                const currentLength = target.value.length;
+
+                                                                counterEle.innerHTML = `${currentLength}`;
+                                                            });
+                                                        </script>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <div class="modal-footer justify-content-between">
+                                                <button type="button" class="btn btn-default"
+                                                    data-dismiss="modal">Закрыть</button>
+                                                <button type="submit" form="add-group"
+                                                    class="btn btn-primary">Добавить</button>
+                                            </div>
+                                        </div>
+                                        <!-- /.modal-content -->
+                                    </div>
+                                    <!-- /.modal-dialog -->
+                                </div>
+
                                 <div class="row">
                                     <div class="col-lg-12 mb-3">
-                                        <form method="GET" action="{{ route('messages')}}" class="form-inline">
+                                        <form method="GET" action="{{ route('messages') }}" class="form-inline">
                                             <div class="input-group mr-3">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
                                                         <i class="far fa-calendar-alt"></i>
                                                     </span>
                                                 </div>
-                                                <input type="text" name="date" class="form-control float-right" id="reservation">
+                                                <input type="text" name="date" class="form-control float-right"
+                                                    id="reservation">
                                             </div>
                                             <div class="form-group mr-3">
                                                 <select class="form-control select2bs4" name='src'>
@@ -67,7 +200,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach ($messages ?? " " as $message )
+                                                @foreach ($messages ?? ' ' as $message)
                                                     <tr>
                                                         <td>{{ $message->id }}</td>
                                                         <td>{{ $message->name }}</td>

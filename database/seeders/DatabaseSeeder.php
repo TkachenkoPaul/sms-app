@@ -17,6 +17,6 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
         // Subscriber::factory()->count(1589)->create();
-        Message::factory()->count(480)->create();
+        Message::factory()->count(1200)->create();
     }
 }
