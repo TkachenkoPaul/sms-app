@@ -58,9 +58,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <div class="collapse navbar-collapse order-3" id="navbarCollapse">
                     <!-- Left navbar links -->
                     <ul class="navbar-nav">
-                        {{-- <li class="nav-item">
-                            <a href="/" class="nav-link">Статистика</a>
-                        </li> --}}
                         <li class="nav-item">
                             <a href="/" class="nav-link">Рассылка</a>
                         </li>
