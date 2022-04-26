@@ -15,6 +15,10 @@ class Message extends Model
     {
         return $this->hasOne(User::class, 'id', 'aid');
     }
+    public function group()
+    {
+        return $this->hasOne(Groups::class, 'id', 'gid');
+    }
 
     public function source()
     {

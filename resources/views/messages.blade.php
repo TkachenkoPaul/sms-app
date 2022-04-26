@@ -18,12 +18,12 @@
         <div class="content">
             <div class="container">
                 <div class="row">
-                    <div class="col-12 col-sm-6 col-md-3">
-                        <div class="info-box elevation-3">
+                    <div class="col-12 col-sm-6 col-md-3 hover">
+                        <div class="info-box elevation-3" onclick="showModal1()">
                             <span class="info-box-icon bg-success elevation-1"><i class="fas fa-sms"></i></span>
 
                             <div class="info-box-content">
-                                <span class="info-box-text">Альфа имя 1</span>
+                                <span class="info-box-text">IGRUSHKI</span>
                                 <span class="info-box-number">
                                     140
                                     <small>шт.</small>
@@ -35,11 +35,11 @@
                     </div>
                     <!-- /.col -->
                     <div class="col-12 col-sm-6 col-md-3">
-                        <div class="info-box elevation-3 mb-3">
+                        <div class="info-box elevation-3  hover " onclick="showModal2()">
                             <span class="info-box-icon bg-success elevation-1"><i class="fas fa-sms"></i></span>
 
                             <div class="info-box-content">
-                                <span class="info-box-text">Альфа имя 2</span>
+                                <span class="info-box-text">TKANI</span>
                                 <span class="info-box-number">130 <small>шт.</small></span>
                             </div>
                             <!-- /.info-box-content -->
@@ -82,6 +82,190 @@
                             </div>
                             <div class="card-body">
 
+                                <div class="modal fade" id="modal-1">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Создать рассылку</h4>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form id="add-group-1" method="POST"
+                                                    action="{{ route('store-messages') }}">
+                                                    @csrf
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <div class="form-group">
+                                                                <label>Источник:</label>
+                                                                <select name="src" id="select-modal-src-1"
+                                                                    class="form-control select2 select2-hidden-accessible"
+                                                                    style="width: 100%;" tabindex="-1" aria-hidden="true">
+                                                                    @foreach ($sources ?? ' ' as $source)
+                                                                        @if ($source->id === 1)
+                                                                            <option value="{{ $source->id }}"
+                                                                                selected="selected">
+                                                                                {{ $source->name }}</option>
+                                                                        @else
+                                                                            <option value="{{ $source->id }}">
+                                                                                {{ $source->name }}</option>
+                                                                        @endif
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-12">
+                                                            <div class="form-group">
+                                                                <label>Группа:</label>
+                                                                <select name="gid"
+                                                                    class="form-control select2 select2-hidden-accessible"
+                                                                    style="width: 100%;" tabindex="-1" aria-hidden="true">
+                                                                    @foreach ($groups ?? ' ' as $group)
+                                                                        @if ($group->id === 13)
+                                                                            <option value="{{ $group->id }}"
+                                                                                selected="selected">
+                                                                                {{ $group->name }}</option>
+                                                                        @else
+                                                                            <option value="{{ $group->id }}">
+                                                                                {{ $group->name }}</option>
+                                                                        @endif
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <!-- textarea -->
+                                                            <div class="form-group">
+                                                                <label>Описание </label>
+                                                                <textarea maxlength="69" id="message" name="message" class="form-control" rows="4"
+                                                                    placeholder="Введите краткое описание группы"></textarea>
+                                                                <div class="pull-right" id="counter">0</div>
+                                                            </div>
+                                                        </div>
+                                                        <script>
+                                                            const messageEle = document.getElementById('message');
+                                                            const counterEle = document.getElementById('counter');
+
+                                                            messageEle.addEventListener('input', function(e) {
+                                                                const target = e.target;
+
+                                                                // Count the current number of characters
+                                                                const currentLength = target.value.length;
+
+                                                                counterEle.innerHTML = `${currentLength}`;
+                                                            });
+                                                        </script>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <div class="modal-footer justify-content-between">
+                                                <button type="button" class="btn btn-default"
+                                                    data-dismiss="modal">Закрыть</button>
+                                                <button type="submit" form="add-group-1"
+                                                    class="btn btn-primary">Добавить</button>
+                                            </div>
+                                        </div>
+                                        <!-- /.modal-content -->
+                                    </div>
+                                    <!-- /.modal-dialog -->
+                                </div>
+
+                                <div class="modal fade" id="modal-2">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Создать рассылку</h4>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form id="add-group-2" method="POST"
+                                                    action="{{ route('store-messages') }}">
+                                                    @csrf
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <div class="form-group">
+                                                                <label>Источник:</label>
+                                                                <select name="src" id="select-modal-src-2"
+                                                                    class="form-control select2 select2-hidden-accessible"
+                                                                    style="width: 100%;" tabindex="-1" aria-hidden="true">
+                                                                    @foreach ($sources ?? ' ' as $source)
+                                                                        @if ($source->id === 2)
+                                                                            <option value="{{ $source->id }}"
+                                                                                selected="selected">
+                                                                                {{ $source->name }}</option>
+                                                                        @else
+                                                                            <option value="{{ $source->id }}">
+                                                                                {{ $source->name }}</option>
+                                                                        @endif
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-12">
+                                                            <div class="form-group">
+                                                                <label>Группа:</label>
+                                                                <select name="gid"
+                                                                    class="form-control select2 select2-hidden-accessible"
+                                                                    style="width: 100%;" tabindex="-1" aria-hidden="true">
+                                                                    @foreach ($groups ?? ' ' as $group)
+                                                                        @if ($group->id === 14)
+                                                                            <option value="{{ $group->id }}"
+                                                                                selected="selected">
+                                                                                {{ $group->name }}</option>
+                                                                        @else
+                                                                            <option value="{{ $group->id }}">
+                                                                                {{ $group->name }}</option>
+                                                                        @endif
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <!-- textarea -->
+                                                            <div class="form-group">
+                                                                <label>Описание </label>
+                                                                <textarea maxlength="69" id="message" name="message" class="form-control" rows="4"
+                                                                    placeholder="Введите краткое описание группы"></textarea>
+                                                                <div class="pull-right" id="counter">0</div>
+                                                            </div>
+                                                        </div>
+                                                        <script>
+                                                            const messageEle = document.getElementById('message');
+                                                            const counterEle = document.getElementById('counter');
+
+                                                            messageEle.addEventListener('input', function(e) {
+                                                                const target = e.target;
+
+                                                                // Count the current number of characters
+                                                                const currentLength = target.value.length;
+
+                                                                counterEle.innerHTML = `${currentLength}`;
+                                                            });
+                                                        </script>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <div class="modal-footer justify-content-between">
+                                                <button type="button" class="btn btn-default"
+                                                    data-dismiss="modal">Закрыть</button>
+                                                <button type="submit" form="add-group-2"
+                                                    class="btn btn-primary">Добавить</button>
+                                            </div>
+                                        </div>
+                                        <!-- /.modal-content -->
+                                    </div>
+                                    <!-- /.modal-dialog -->
+                                </div>
+
                                 <div class="modal fade" id="modal-default">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
@@ -93,7 +277,8 @@
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                                <form id="add-group" method="POST" action="{{ route('store-messages') }}">
+                                                <form id="add-group" method="POST"
+                                                    action="{{ route('store-messages') }}">
                                                     @csrf
                                                     <div class="row">
                                                         <div class="col-sm-12">
@@ -195,6 +380,7 @@
                                                     <th>Статус</th>
                                                     <th>Создал</th>
                                                     <th>Источник</th>
+                                                    <th>Группа</th>
                                                     <th>Создано</th>
                                                     <th>Изменено</th>
                                                 </tr>
@@ -209,6 +395,7 @@
                                                         <td>{{ $message->state }}</td>
                                                         <td>{{ $message->admin->name }}</td>
                                                         <td>{{ $message->source->name }}</td>
+                                                        <td>{{ $message->group->name }}</td>
                                                         <td>{{ $message->created_at }}</td>
                                                         <td>{{ $message->updated_at }}</td>
                                                     </tr>
@@ -223,6 +410,7 @@
                                                     <th>Статус</th>
                                                     <th>Создал</th>
                                                     <th>Источник</th>
+                                                    <th>Группа</th>
                                                     <th>Создано</th>
                                                     <th>Изменено</th>
                                                 </tr>

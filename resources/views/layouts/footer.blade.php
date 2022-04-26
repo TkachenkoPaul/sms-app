@@ -50,6 +50,23 @@
 
 <!-- Page specific script -->
 <script>
+    $('#modal-1').modal({
+        show: false
+    })
+    $('#modal-2').modal({
+        show: false
+    })
+
+    function showModal1() {
+        $('#modal-1').modal('toggle')
+    }
+
+    function showModal2() {
+        $('#modal-2').modal('toggle')
+    }
+
+
+
     $(function() {
         $('.toastsDefaultDanger').click(function() {
             $(document).Toasts('create', {
@@ -63,6 +80,9 @@
             toastr.error('Lorem ipsum dolor sit amet, consetetur sadipscing elitr.')
         });
         $("#example1").DataTable({
+            "order": [
+                [0, "desc"]
+            ],
             "responsive": true,
             "lengthChange": false,
             "autoWidth": false,
@@ -336,11 +356,21 @@
             }
         });
         //Initialize Select2 Elements
-        $('.select2').select2();
+        $('.select2').select2({
+            tags: true,
+        });
 
         //Initialize Select2 Elements
         $('.select2bs4').select2({
-            theme: 'bootstrap4'
+            theme: 'bootstrap4',
+            tags: true,
+        });
+
+        $('#select-modal-src-1').select2({
+            tags: true,
+        });
+        $('#select-modal-src-2').select2({
+            tags: true,
         });
     });
 </script>

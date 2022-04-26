@@ -22,7 +22,7 @@ class MessageController extends Controller
     {
         $sources = Sources::all();
         $groups = Groups::all();
-        $messages = Message::with('admin', 'source');
+        $messages = Message::with('admin', 'source','group');
         if ($request->has('date') and $request->has('src')) {
             $dates = explode(' - ', $request->input('date'));
             $date['start'] = $dates[0];
@@ -39,8 +39,10 @@ class MessageController extends Controller
             $date['end'] = Carbon::now()->toDateString().' 23:59:59';
             $source = 'Все источники';
         }
-        $inQueue = Message::where('state', '=', 'В очереди')->count();
+        // $inQueue = Message::where('state', '=', 'В очереди')->count();
+
         $messages = $messages->whereBetween('created_at', [$date['start'], $date['end']])->get();
+        $inQueue = $messages->where('state', '=', 'В очереди')->count();
         $header = $source.' '.' c '.$date['start'].' по '.$date['end'];
 
         return view('messages', ['messages' => $messages, 'sources' => $sources, 'groups' => $groups, 'header' => $header, 'inQueue' => $inQueue]);
@@ -75,6 +77,7 @@ class MessageController extends Controller
             $data['phone'] = $subscriber->phone;
             $data['message'] = $request->input('message');
             $data['src'] = $request->input('src');
+            $data['gid'] = $request->input('gid');
             $data['aid'] = Auth::user()->id;
             $data['state'] = 'В очереди';
             $data['created_at'] = date('Y-m-d H:i:s');

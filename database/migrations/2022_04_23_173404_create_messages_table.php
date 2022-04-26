@@ -20,6 +20,7 @@ class CreateMessagesTable extends Migration
             $table->string('message');
             $table->integer('src');
             $table->integer('aid');
+            $table->integer('gid');
             $table->string('state');
             $table->timestamps();
         });
