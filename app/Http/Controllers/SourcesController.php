@@ -95,8 +95,10 @@ class SourcesController extends Controller
      * @param  \App\Models\Sources  $sources
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Sources $sources)
+    public function destroy(Sources $sources,$id)
     {
-        //
+        $item = $sources->find($id);
+        $item->delete();
+        return redirect()->back();
     }
 }

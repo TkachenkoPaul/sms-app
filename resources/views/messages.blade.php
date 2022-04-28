@@ -32,6 +32,40 @@
         <div class="content">
             <div class="container">
                 <div class="row">
+                    @if (isset($info[0]))
+                        <div class="col-12 col-sm-6 col-md-3 hover">
+                            <div class="info-box elevation-3" onclick="showModal1()">
+                                <span class="info-box-icon bg-success elevation-1"><i class="fas fa-sms"></i></span>
+
+                                <div class="info-box-content">
+                                    <span class="info-box-text">{{ $info[0]['name'] }}</span>
+                                    <span class="info-box-number">
+                                        {{ $info[0]['count'] }}
+                                        <small>шт.</small>
+                                    </span>
+                                </div>
+                                <!-- /.info-box-content -->
+                            </div>
+                            <!-- /.info-box -->
+                        </div>
+                    @endif
+                    @if (isset($info[1]))
+                        <div class="col-12 col-sm-6 col-md-3 hover">
+                            <div class="info-box elevation-3" onclick="showModal2()">
+                                <span class="info-box-icon bg-success elevation-1"><i class="fas fa-sms"></i></span>
+
+                                <div class="info-box-content">
+                                    <span class="info-box-text">{{ $info[1]['name'] }}</span>
+                                    <span class="info-box-number">
+                                        {{ $info[1]['count'] }}
+                                        <small>шт.</small>
+                                    </span>
+                                </div>
+                                <!-- /.info-box-content -->
+                            </div>
+                            <!-- /.info-box -->
+                        </div>
+                    @endif
                     <div class="col-12 col-sm-6 col-md-3 hover">
                         <div class="info-box elevation-3" onclick="showModal1()">
                             <span class="info-box-icon bg-success elevation-1"><i class="fas fa-sms"></i></span>

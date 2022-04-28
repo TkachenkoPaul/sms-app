@@ -49,6 +49,21 @@ class MessageController extends Controller
         $sources = Sources::all();
         $groups = Groups::all();
         $messages = Message::with('admin', 'source', 'group');
+        $sources = Sources::all();
+        $info = array();
+        foreach ($sources as $source) {
+            $apiURL = 'https://smsc.lugacom.com:8444/balance?login='.$source->login.'&password='.$source->password;
+            $cURLConnection = curl_init();
+            curl_setopt($cURLConnection, CURLOPT_URL, $apiURL);
+            curl_setopt($cURLConnection, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($cURLConnection, CURLOPT_SSL_VERIFYPEER, 0);
+            $apiResponse = json_decode(curl_exec($cURLConnection),1);
+            curl_close($cURLConnection);
+            $data['name'] = $source->name;
+            $data['count'] = $apiResponse['sms_count'];
+            $info[] = $data;
+        }
+        dump($info);
         if ($request->has('date') and $request->has('src')) {
             $dates = explode(' - ', $request->input('date'));
             $date['start'] = $dates[0];
@@ -66,12 +81,12 @@ class MessageController extends Controller
             $source = 'Все источники';
         }
         // $inQueue = Message::where('state', '=', 'В очереди')->count();
-
         $messages = $messages->whereBetween('created_at', [$date['start'], $date['end']])->get();
         $inQueue = $messages->where('state', '=', 'В очереди')->count();
         $header = $source.' '.' c '.$date['start'].' по '.$date['end'];
 
-        return view('messages', ['messages' => $messages, 'sources' => $sources, 'groups' => $groups, 'header' => $header, 'inQueue' => $inQueue]);
+        return view('messages', ['messages' => $messages, 'sources' => $sources,
+        'groups' => $groups, 'header' => $header, 'inQueue' => $inQueue,'info'=> $info]);
     }
 
     public function indexAjax(Request $request)
