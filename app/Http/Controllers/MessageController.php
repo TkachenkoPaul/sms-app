@@ -13,6 +13,32 @@ use Illuminate\Support\Facades\Auth;
 
 class MessageController extends Controller
 {
+
+
+    public function test()
+    {
+        $login = 'login';
+        $password = 'password';
+        $from = 'sms';
+        $filename = "/home/tkachenko/www/sms-app/public/test.txt";
+        $file = fopen($filename,'a');
+        $messages = Message::where('state','=','В очереди')->limit(20)->get();
+            foreach ($messages as $message) {
+                $apiURL = 'https://smsc.lugacom.com:8444/smsc?login='.$login.'&password='.$password.'&to=38'.$message->phone.'&content='.$message->message.'&from='.$from;
+                fwrite($file,Carbon::now()->format('Y-m-d H:i:s').' - '.$apiURL."\n");
+                // $cURLConnection = curl_init();
+                // curl_setopt($cURLConnection, CURLOPT_URL, $apiURL);
+                // curl_setopt($cURLConnection, CURLOPT_RETURNTRANSFER, true);
+                // curl_setopt($cURLConnection, CURLOPT_SSL_VERIFYPEER, 0);
+                // $apiResponse = json_decode(curl_exec($cURLConnection),1);
+                // curl_close($cURLConnection);
+                // $smsResponse = Sms::where('id','=',$sms->id)->update(['message_state' => $apiResponse['status'],'message_id' => $apiResponse['id_message'],'message_date' => Carbon::now()->format('Y-m-d H:i:s')]);
+            }
+        fclose($file);
+        dump('log test');
+    }
+
+
     /**
      * Display a listing of the resource.
      *

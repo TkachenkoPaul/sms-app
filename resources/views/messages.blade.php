@@ -155,14 +155,14 @@
                                                             <!-- textarea -->
                                                             <div class="form-group">
                                                                 <label>Описание </label>
-                                                                <textarea maxlength="69" id="message" name="message" class="form-control" rows="4"
+                                                                <textarea id="message-main" name="message" class="form-control" rows="4"
                                                                     placeholder="Введите сообщение для рассылки"></textarea>
-                                                                <div class="pull-right" id="counter">0</div>
+                                                                <div class="pull-right" id="counter-main">0</div>
                                                             </div>
                                                         </div>
                                                         <script>
-                                                            const messageEle = document.getElementById('message');
-                                                            const counterEle = document.getElementById('counter');
+                                                            let messageEle = document.getElementById('message-main');
+                                                            let counterEle = document.getElementById('counter-main');
 
                                                             messageEle.addEventListener('input', function(e) {
                                                                 const target = e.target;
@@ -247,22 +247,22 @@
                                                             <!-- textarea -->
                                                             <div class="form-group">
                                                                 <label>Описание </label>
-                                                                <textarea maxlength="69" id="message" name="message" class="form-control" rows="4"
+                                                                <textarea id="message-2" name="message" class="form-control" rows="4"
                                                                     placeholder="Введите сообщение для рассылки"></textarea>
-                                                                <div class="pull-right" id="counter">0</div>
+                                                                <div class="pull-right" id="counter-2">0</div>
                                                             </div>
                                                         </div>
                                                         <script>
-                                                            const messageEle = document.getElementById('message');
-                                                            const counterEle = document.getElementById('counter');
+                                                            let messageEle2 = document.getElementById('message-2');
+                                                            let counterEle2 = document.getElementById('counter-2');
 
-                                                            messageEle.addEventListener('input', function(e) {
+                                                            messageEle2.addEventListener('input', function(e) {
                                                                 const target = e.target;
 
                                                                 // Count the current number of characters
                                                                 const currentLength = target.value.length;
 
-                                                                counterEle.innerHTML = `${currentLength}`;
+                                                                counterEle2.innerHTML = `${currentLength}`;
                                                             });
                                                         </script>
                                                     </div>
@@ -327,22 +327,22 @@
                                                             <!-- textarea -->
                                                             <div class="form-group">
                                                                 <label>Описание </label>
-                                                                <textarea maxlength="69" id="message" name="message" class="form-control" rows="4"
+                                                                <textarea id="message-3" name="message" class="form-control" rows="4"
                                                                     placeholder="Введите сообщение для рыссылки"></textarea>
-                                                                <div class="pull-right" id="counter">0</div>
+                                                                <div class="pull-right" id="counter-3">0</div>
                                                             </div>
                                                         </div>
                                                         <script>
-                                                            const messageEle = document.getElementById('message');
-                                                            const counterEle = document.getElementById('counter');
+                                                            let messageEle3 = document.getElementById('message-3');
+                                                            let counterEle3 = document.getElementById('counter-3');
 
-                                                            messageEle.addEventListener('input', function(e) {
+                                                            messageEle3.addEventListener('input', function(e) {
                                                                 const target = e.target;
 
                                                                 // Count the current number of characters
                                                                 const currentLength = target.value.length;
 
-                                                                counterEle.innerHTML = `${currentLength}`;
+                                                                counterEle3.innerHTML = `${currentLength}`;
                                                             });
                                                         </script>
                                                     </div>

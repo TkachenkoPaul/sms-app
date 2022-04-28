@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use Carbon\Carbon;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -16,6 +17,12 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
+        $schedule->call(function () {
+            $filename = "/home/tkachenko/www/sms-app/public/test.txt";
+            $file = fopen($filename,'a');
+            fwrite($file,'new test string '.Carbon::now()." \n");
+            fclose($file);
+        })->everyMinute();
     }
 
     /**

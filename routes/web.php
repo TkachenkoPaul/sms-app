@@ -40,6 +40,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/', [MessageController::class, 'index'])->name('messages');
     Route::post('/messages', [MessageController::class, 'store'])->name('store-messages');
+    Route::get('/test', [MessageController::class, 'test'])->name('test');
 
     // Route::get('/dashboard', function () {
     //     return view('dashboard');
