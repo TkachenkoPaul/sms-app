@@ -10,6 +10,20 @@
                         <h1 class="m-0">Рассылка</h1>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
+                <div class="row">
+                    <div class="col-md-12">
+                        @if ($errors->any())
+                            <div class="callout callout-info">
+                                <h5><i class="fas fa-info"></i>Ошибка</h5>
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+                    </div>
+                </div>
             </div><!-- /.container-fluid -->
         </div>
         <!-- /.content-header -->
@@ -142,7 +156,7 @@
                                                             <div class="form-group">
                                                                 <label>Описание </label>
                                                                 <textarea maxlength="69" id="message" name="message" class="form-control" rows="4"
-                                                                    placeholder="Введите краткое описание группы"></textarea>
+                                                                    placeholder="Введите сообщение для рассылки"></textarea>
                                                                 <div class="pull-right" id="counter">0</div>
                                                             </div>
                                                         </div>
@@ -234,7 +248,7 @@
                                                             <div class="form-group">
                                                                 <label>Описание </label>
                                                                 <textarea maxlength="69" id="message" name="message" class="form-control" rows="4"
-                                                                    placeholder="Введите краткое описание группы"></textarea>
+                                                                    placeholder="Введите сообщение для рассылки"></textarea>
                                                                 <div class="pull-right" id="counter">0</div>
                                                             </div>
                                                         </div>
@@ -314,7 +328,7 @@
                                                             <div class="form-group">
                                                                 <label>Описание </label>
                                                                 <textarea maxlength="69" id="message" name="message" class="form-control" rows="4"
-                                                                    placeholder="Введите краткое описание группы"></textarea>
+                                                                    placeholder="Введите сообщение для рыссылки"></textarea>
                                                                 <div class="pull-right" id="counter">0</div>
                                                             </div>
                                                         </div>

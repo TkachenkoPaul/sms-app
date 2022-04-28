@@ -22,7 +22,7 @@ class MessageController extends Controller
     {
         $sources = Sources::all();
         $groups = Groups::all();
-        $messages = Message::with('admin', 'source','group');
+        $messages = Message::with('admin', 'source', 'group');
         if ($request->has('date') and $request->has('src')) {
             $dates = explode(' - ', $request->input('date'));
             $date['start'] = $dates[0];

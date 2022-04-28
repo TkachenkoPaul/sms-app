@@ -48,8 +48,13 @@
 <!-- AdminLTE App -->
 <script src="{{ asset('dist/js/adminlte.min.js') }}"></script>
 
+<script src="{{ asset('plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
 <!-- Page specific script -->
 <script>
+    $(function() {
+        bsCustomFileInput.init();
+    });
+
     $('#modal-1').modal({
         show: false
     })

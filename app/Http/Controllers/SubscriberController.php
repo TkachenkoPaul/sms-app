@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreSubscriberRequest;
+use App\Imports\SubscribersImport;
 use App\Models\Groups;
 use App\Models\Subscriber;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use PHPUnit\TextUI\XmlConfiguration\Group;
 
 class SubscriberController extends Controller
 {
@@ -16,11 +16,12 @@ class SubscriberController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($id , Groups $groups)
+    public function index($id, Groups $groups)
     {
         $group = $groups->find($id);
-        $subscribers = Subscriber::where('gid','=',$id)->with('admin','group')->get();
-        return view('subscribers',['subscribers' => $subscribers,'group' => $group]);
+        $subscribers = Subscriber::where('gid', '=', $id)->with('admin', 'group')->get();
+
+        return view('subscribers', ['subscribers' => $subscribers, 'group' => $group]);
     }
 
     /**
@@ -30,13 +31,13 @@ class SubscriberController extends Controller
      */
     public function create()
     {
-        //
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(StoreSubscriberRequest $request)
@@ -48,38 +49,62 @@ class SubscriberController extends Controller
         $subscriber->aid = Auth::user()->id;
         $subscriber->gid = $request->input('gid');
         $subscriber->save();
+
+        return redirect()->back();
+    }
+
+    /**
+     * import new subscribers from excel file.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function import(Request $request)
+    {
+        $array = (new SubscribersImport())->toArray($request->file('file'));
+        $array = array_slice($array[0], 5);
+        $insertData = [];
+        foreach ($array as $arr) {
+            $data['name'] = $arr[1];
+            $data['phone'] = intval($arr[2]);
+            $data['desc'] = 'excel import';
+            $data['aid'] = Auth::user()->id;
+            $data['gid'] = $request->input('gid');
+            $data['created_at'] = date('Y-m-d H:i:s');
+            $data['updated_at'] = date('Y-m-d H:i:s');
+            $insertData[] = $data;
+        }
+        Subscriber::insert($insertData);
+
         return redirect()->back();
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Subscriber  $subscriber
      * @return \Illuminate\Http\Response
      */
     public function show(Subscriber $subscriber)
     {
-        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Subscriber  $subscriber
      * @return \Illuminate\Http\Response
      */
     public function edit(Subscriber $subscriber, $id)
     {
         $subscriber = $subscriber->find($id);
         $groups = Groups::all();
-        return view('subscriber',['subscriber' => $subscriber, 'groups' => $groups]);
+
+        return view('subscriber', ['subscriber' => $subscriber, 'groups' => $groups]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Subscriber  $subscriber
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(StoreSubscriberRequest $request, Subscriber $subscriber, $id)
@@ -90,19 +115,20 @@ class SubscriberController extends Controller
         $subscriber->desc = $request->input('desc');
         $subscriber->gid = $request->input('gid');
         $subscriber->save();
+
         return redirect()->back();
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Subscriber  $subscriber
      * @return \Illuminate\Http\Response
      */
     public function destroy(Subscriber $subscriber, $id)
     {
         $item = $subscriber->find($id);
         $item->delete();
+
         return redirect()->back();
     }
 }

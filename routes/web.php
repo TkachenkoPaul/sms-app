@@ -27,6 +27,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/group/subscribers/{groupId}', [SubscriberController::class, 'index'])->name('subscribers');
     Route::post('/group/subscriber', [SubscriberController::class, 'store'])->name('add-subscriber');
+    Route::post('/group/subscriber/import', [SubscriberController::class, 'import'])->name('import-subscribers');
     Route::get('/group/subscriber/destroy/{id}', [SubscriberController::class, 'destroy'])->name('destroy-subscriber');
     Route::get('/group/subscriber/edit/{id}', [SubscriberController::class, 'edit'])->name('edit-subscriber');
     Route::put('/group/subscriber/edit/{id}', [SubscriberController::class, 'update'])->name('update-subscriber');
